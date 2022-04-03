@@ -1,0 +1,24 @@
+---
+# tasks file for hellowrold
+
+- name: Clone git repo
+  become: false
+  git:
+    repo: "git@github.com:ReddyPrashanth/DevOps.git"
+    dest: /home/ec2-user/src
+    accept_hostkey: yes
+
+- name: Copy hello world systemd service file
+  shell:
+    cmd: cp /home/ec2-user/src/helloworld.service /lib/systemd/system/helloworld.service
+  register: result
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+  when: result is succeeded
+
+- name: Start hello world application
+  service:
+    name: "helloworld.service"
+    state: started
+    enabled: yes

@@ -1,0 +1,16 @@
+---
+# tasks file for git
+
+- name: Install git
+  yum:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: Copy git ssh key
+  copy:
+    src: ~/.ssh/id_rsa
+    dest: /home/ec2-user/.ssh/id_rsa
+    owner: ec2-user
+    group: ec2-user
+    mode: 0400

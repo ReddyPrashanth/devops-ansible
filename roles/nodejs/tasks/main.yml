@@ -1,0 +1,8 @@
+---
+# tasks file for nodejs
+- name: Installing node
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - nodejs
